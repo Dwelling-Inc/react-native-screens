@@ -90,6 +90,10 @@
 
 - (void)insertReactSubview:(RNSScreenView *)subview atIndex:(NSInteger)atIndex
 {
+  if (![subview isKindOfClass:[RNSScreenView class]]) {
+    RCTLogError(@"ScreenStack only accepts children of type Screen");
+    return;
+  }
   subview.reactSuperview = self;
   [_reactSubviews insertObject:subview atIndex:atIndex];
   [subview reactSetFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
